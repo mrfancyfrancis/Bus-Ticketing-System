@@ -21,20 +21,43 @@ class PassengerAccount(models.Model):
         null=False,
     )
 
-    def create_account(**fields):
-        username = fields.get('username')
-        email = fields.get('email')
-        password = fields.get('password'),
-        user = User.objects.create_user(username, email, password)
-        user.is_staff = False
-        #Question.objects.create(question_text=question_text, pub_date=time)
 
-        account = PassengerAccount.objects.create(user, firstname=fields.get('firstname'), lastname=fields.get('lastname'),
-                            age=fields.get('age'), birthday=fields.get('birthday'),
-                            contact_no=fields.get('contact_no'))
+class BusCompany(models.Model):
+    name = models.CharField(max_length=50, blank=False)
 
-        return [user,account]
 
-from django.db import models
+class CompanyAccount(models.Model):
+    id = models.OneToOneField('auth.User', on_delete=models.CASCADE, primary_key=True)
+    firstname = models.CharField(max_length=50, blank=False)
+    lastname = models.CharField(max_length=50, blank=False)
+    contact_no = models.CharField(
+        validators=[
+            RegexValidator(
+                regex=r'^(\+639|09)\d{9}$',
+                message='Enter a valid Phone Number',
+            ),
+        ],
+        max_length=13,
+        blank=False,
+        null=False,
+    )
+    company = models.ForeignKey(BusCompany, on_delete=models.CASCADE)
 
-# Create your models here.
+
+class Schedule(models.Model):
+    schedule = models.DateTimeField()
+    origin = models.CharField(max_length=50)
+    destination = models.CharField(max_length=50)
+    company = models.ForeignKey(BusCompany, on_delete=models.CASCADE)
+
+
+class Reservation(models.Model):
+    passenger = models.ForeignKey(PassengerAccount, on_delete=models.CASCADE)
+    schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
+
+
+class Payment(models.Model)
+    amount = models.DecimalField()
+    payment = models.CharField()
+    status = models.CharField()
+    reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
