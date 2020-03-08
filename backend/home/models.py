@@ -1,7 +1,7 @@
 from django.core.validators import RegexValidator
 from django.db import models
 from django.contrib.auth.models import User
-
+import json
 
 class PassengerAccount(models.Model):
     id = models.OneToOneField('auth.User', on_delete=models.CASCADE, primary_key=True)
@@ -56,8 +56,18 @@ class Reservation(models.Model):
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
 
 
-class Payment(models.Model)
-    amount = models.DecimalField()
-    payment = models.CharField()
-    status = models.CharField()
+class Payment(models.Model):
+    amount = models.DecimalField(decimal_places=2, max_digits=4)
+    payment = models.CharField(max_length=50)
+    status = models.CharField(max_length=50)
     reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)
+
+
+class ResponseObject:
+    status = ''
+    data = dict()
+    def __init__(self, status, data):
+        self.status = status
+        self.data = data
+    def getResponse(self):
+        return json.dumps(self.__dict__)
