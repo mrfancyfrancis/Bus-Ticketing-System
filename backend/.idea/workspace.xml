@@ -4,11 +4,16 @@
     <list default="true" id="5aa95c1d-516d-4fc9-bf34-7bb837665d29" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectId" id="1YTeMDe5oBMz8c4GxaLXVVhrhKZ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -70,7 +75,14 @@
       <option name="presentableId" value="Default" />
       <updated>1582970961720</updated>
       <workItem from="1582970966836" duration="345000" />
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+=======
+      <workItem from="1582971382838" duration="3582000" />
+>>>>>>> Stashed changes
+=======
       <workItem from="1582971382838" duration="3423000" />
+>>>>>>> b3e3fde9aab59652ffcdae4ae229e0ea337262ed
     </task>
     <servers />
   </component>

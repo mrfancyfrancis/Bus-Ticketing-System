@@ -1,0 +1,54 @@
+<html>
+	<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login.css') }}"> 
+	<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/hover.css') }}"> 
+
+	<body>
+	<div class="container" id="container">
+		<div class="form-container sign-up-container">
+			<form action="Signup">
+				<h1>Sign up</h1>
+				<div class="two-forms-container">
+					<a href="#" class="social social-facebook-icon hvr-buzz-out"><i class="facebook"></i></a>
+					<a href="#" class="social social-google-icon hvr-buzz-out"><i class="google"></i></a>
+				</div>
+				<span>or use your email for registration</span>
+				<input type="text" placeholder="Name" class="hvr-bounce-in"/>
+				<input type="email" placeholder="Email" class="hvr-bounce-in"/>
+				<input type="password" placeholder="Password" class="hvr-bounce-in"/>
+				<button class="hvr-bounce-in">Sign Up</button>
+			</form>
+		</div>
+		<div class="form-container sign-in-container">
+			<form action="Login" method="POST">
+				<h1>Log in</h1>
+				<div class="two-forms-container">
+					<a href="#" class="social social-facebook-icon hvr-buzz-out"><i class="facebook"></i></a>
+					<a href="#" class="social social-google-icon hvr-buzz-out"><i class="google"></i></a>
+				</div>
+				<span>or use your account</span>
+				<input type="email" name="username" placeholder="Email" class="hvr-bounce-in"/>
+				<input type="password" name="password" placeholder="Password" class="hvr-bounce-in"/>
+				<a href="#" class="hvr-underline-from-center">Forgot your password?</a>
+				<button class="hvr-bounce-in">login</button>
+			</form>
+		</div>
+		<div class="overlay-container">
+			<div class="overlay">
+				<div class="overlay-panel overlay-left">
+					<h2>Welcome Traveler!</h2>
+					<p>To enjoy our services, please login your personal info</p>
+					<button class="ghost hvr-backward" id="signIn">Sign In</button>
+				</div>
+				<div class="overlay-panel overlay-right">
+					<h2>Want a hassle-free bus reservation?</h2>
+					<p>Just choose a bus, reserve, pay, and you're ready to go!</p>
+					<button class="ghost hvr-forward" class="hvr-bounce-in" id="signUp">Sign up</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="{{ url_for('static',filename='javascripts/login.js') }}"></script> 
+
+	</body>
+</html>
