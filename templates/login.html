@@ -1,11 +1,11 @@
 <html>
-	<link rel="stylesheet" href="login.css"> 
-	<link rel="stylesheet" href="hover.css"> 
+	<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login.css') }}"> 
+	<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/hover.css') }}"> 
 
 	<body>
 	<div class="container" id="container">
 		<div class="form-container sign-up-container">
-			<form action="#">
+			<form action="Signup">
 				<h1>Sign up</h1>
 				<div class="two-forms-container">
 					<a href="#" class="social social-facebook-icon hvr-buzz-out"><i class="facebook"></i></a>
@@ -19,15 +19,15 @@
 			</form>
 		</div>
 		<div class="form-container sign-in-container">
-			<form action="#">
+			<form action="Login" method="POST">
 				<h1>Log in</h1>
 				<div class="two-forms-container">
 					<a href="#" class="social social-facebook-icon hvr-buzz-out"><i class="facebook"></i></a>
 					<a href="#" class="social social-google-icon hvr-buzz-out"><i class="google"></i></a>
 				</div>
 				<span>or use your account</span>
-				<input type="email" placeholder="Email" class="hvr-bounce-in"/>
-				<input type="password" placeholder="Password" class="hvr-bounce-in"/>
+				<input type="email" name="username" placeholder="Email" class="hvr-bounce-in"/>
+				<input type="password" name="password" placeholder="Password" class="hvr-bounce-in"/>
 				<a href="#" class="hvr-underline-from-center">Forgot your password?</a>
 				<button class="hvr-bounce-in">login</button>
 			</form>
@@ -48,7 +48,7 @@
 		</div>
 	</div>
 
-	<script src="login.js"></script> 
+	<script src="{{ url_for('static',filename='javascripts/login.js') }}"></script> 
 
 	</body>
 </html>

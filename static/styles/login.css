@@ -6,7 +6,7 @@
 }
 
 body {
-	background-image: url("assets/loginBG.svg");
+	background-image: url("/static/assets/loginBG.svg");
 	background-size: cover;
 	display: flex;
 	justify-content: center;
@@ -19,11 +19,11 @@ body {
 }
 
 .social-facebook-icon {
-	background-image: url("assets/facebookIcon.svg");
+	background-image: url("/static/assets/facebookIcon.svg");
 }
 
 .social-google-icon {
-	background-image: url("assets/googleIcon.svg");
+	background-image: url("/static/assets/googleIcon.svg");
 }
 
 h1 {
