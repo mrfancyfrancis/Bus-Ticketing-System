@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, redirect, request, session, abort
+from flask import Flask, render_template, flash, redirect, request, session, abort, make_response
 import os
 import requests
 import json
@@ -28,22 +28,35 @@ app.add_url_rule(f'{a_new_static_path}/<path:filename>',
 
 @app.route('/')
 def home():
-    if not session.get('logged_in'):
+    print("token",request.cookies.get('token'))
+    if not request.cookies.get('token'):
         return render_template('login.html')
     else:
         return render_template('home.html')
 
-@app.route('/Login', methods=['POST'])
+
+@app.route('/logout/')
+def logout():
+    print("token",request.cookies.get('token'))
+    resp = make_response(redirect('/'))
+    resp.set_cookie('token', expires=0)
+    return resp
+
+
+@app.route('/login/', methods=['POST'])
 def do_admin_login():
     backend_response = requests.post("http://127.0.0.1:8000/user/login",
                                      data={"username":request.form['username'],"password":request.form['password']})
     response = json.loads(backend_response.json())
-    print(response['data'])
+    data = json.loads(response['data'])
     if response['status'] == 200:
-        return render_template('home.html')
+        resp = make_response(redirect('/'))
+        resp.set_cookie('token',data['token'])
+        return resp
     else:
         flash('Invalid Credentials')
-        return home()
+        resp = make_response(redirect('/'))
+        return resp
 
 if __name__ == "__main__":
    app.secret_key = os.urandom(12)
