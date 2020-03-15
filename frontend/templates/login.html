@@ -1,6 +1,6 @@
 <html>
-	<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/login.css') }}"> 
-	<link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/hover.css') }}"> 
+	<link rel="stylesheet" type= "text/css" href= "{{ url_for('frontend', filename='/styles/login.css') }}"> 
+	<link rel="stylesheet" type= "text/css" href= "{{ url_for('frontend', filename='/styles/hover.css') }}"> 
 
 	<body>
 	<div class="container" id="container">
@@ -48,7 +48,7 @@
 		</div>
 	</div>
 
-	<script src="{{ url_for('static',filename='javascripts/login.js') }}"></script> 
+	<script src="{{ url_for('frontend', filename='/javascripts/login.js') }}"></script> 
 
 	</body>
 </html>
