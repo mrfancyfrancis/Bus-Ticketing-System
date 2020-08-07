@@ -10,7 +10,7 @@ from rest_framework.status import (
 )
 from rest_framework.response import Response
 import json
-from home.models import ResponseObject, PassengerAccount, Reservation, Payment
+from home.models import ResponseObject, PassengerAccount, Reservation, Payment, Schedule
 import home.utils
 
 @csrf_exempt
@@ -189,7 +189,7 @@ def getReservations(request):
     for R in list(Reservations):
         r = {
                 'date':R.schedule.schedule.strftime('%Y-%m-%d'),
-                'time':R.schedule.schedule.strftime('%H:%M'),
+                'time':R.schedule.schedule.strftime('%I:%M %p'),
                 'company':R.schedule.company.name,
                 'ticket_number':'#'+format(R.id,'011d'),
                 'status': Payment.objects.filter(reservation=R).last().status
@@ -211,6 +211,7 @@ def getUserAvailableSchedule(request):
     if not user:
         return Response(ResponseObject(HTTP_404_NOT_FOUND, { 'Message': 'Invalid Credentials' })).getResponse()
     Reservations = Reservation.objects.filter(passenger=user)
+    Schedule = Schedule.objects.filter()
     print(Reservations)
     reservations = []
     for R in list(Reservations):
@@ -237,21 +238,15 @@ def getAllSchedules(request):
     user = PassengerAccount.objects.filter(id=request.user.id).last()
     if not user:
         return Response(ResponseObject(HTTP_404_NOT_FOUND, { 'Message': 'Invalid Credentials' })).getResponse()
-    Reservations = Reservation.objects.filter(passenger=user)
+    Schedules = Schedule.objects.all()
     print(Reservations)
-    reservations = []
-    for R in list(Reservations):
-        r = {
-                'date':R.schedule.schedule.strftime('%Y-%m-%d'),
-                'time':R.schedule.schedule.strftime('%H:%M'),
-                'company':R.schedule.company.name,
-                'ticket_number':'#'+format(R.id,'011d'),
-                'status': Payment.objects.filter(reservation=R).last().status
+    schedules = []
+    for S in list(Schedules):
+        s = {
+                'date':S.schedule.strftime('%Y-%m-%d'),
+                'time':S.schedule.strftime('%H:%M'),
+                'company':S.company.name,
         }
-        reservations.append(r)
-    data ={
-        "user":request.user.username,
-        'reservations': reservations
-    }
-    response = ResponseObject(HTTP_200_OK, json.dumps(data))
+        schedules.append(s)
+    response = ResponseObject(HTTP_200_OK, json.dumps(S))
     return Response(response.getResponse())
