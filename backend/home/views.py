@@ -167,8 +167,8 @@ def book(request):
                 ],
                 "redirectUrl": {
                     "success": ("http://localhost:5000/payment/approved?id="+str(payment.id)),
-                    "failure": "https://www.merchantsite.com/failure",
-                    "cancel": "https://www.merchantsite.com/cancel"
+                    "failure": "http://localhost:5000/payment/unsuccess/",
+                    "cancel": "http://localhost:5000/payment/unsuccess/"
                 },
                 "requestReferenceNumber": "1551191039",
                 "metadata": {}

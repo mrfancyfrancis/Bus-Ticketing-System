@@ -117,7 +117,15 @@ def approvepayment():
         payment = json.loads(payment_response.json())
         # schedules = json.loads(schedule_response.json())
         print(payment, type(payment))
-    return render_template(payment)
+    return render_template(success.html)
+
+@app.route('/payment/unsuccess/')
+def declinepayment():
+    if not request.cookies.get('token'):
+        resp = make_response(redirect('/'))
+        return resp
+
+    return render_template(unsuccessful.html)
 
 if __name__ == "__main__":
    app.secret_key = os.urandom(12)
