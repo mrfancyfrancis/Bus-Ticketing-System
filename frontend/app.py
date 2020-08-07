@@ -39,7 +39,7 @@ def home():
                                             headers = {"Authorization": 'Token ' + request.cookies.get('token')}
                                             )
         info = json.loads(json.loads(info_response.json())['data'])
-        reservations = json.loads(json.loads(reservation_response.json())['data'])['reservation']
+        reservations = json.loads(json.loads(reservation_response.json())['data'])['reservations']
         return render_template('home.html', info=info, reservations=reservations)
 
 @app.route('/logout/')
