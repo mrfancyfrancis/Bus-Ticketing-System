@@ -73,13 +73,77 @@
                         <h5 class="card-title">From {{s.origin}} To {{s.destination}}</h5>
                         <h5 class="card-text">Number of Seats Available: 20 Seats</h5>
                         <h5 class="card-text price">Php 165.00</h5>
-                        <a href="#" class="btn btn-danger">SELECT</a>
+                        <button id="myBtn" class="btn btn-danger">SELECT</button>
                     </div>
-                </div>       
+                </div> 
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span class="close">&times;</span>
+                            <h2>BUS DETAILS</h2>
+                            <div class="media">
+                                <img class="align-self-center mr-3" src="/frontend/static/assets/busIcon.png" alt="Generic placeholder image">
+                                <div class="media-body">
+                                <h3 class="mt-0">{{s.company}}</h3><br><span><p class="h3"><b>Php 215.00</b></p></span>
+                                    <div class="para-1">
+                                        <p class="h4">From {{s.origin}} To {{s.destination}}</p><span><p class="h4">Ticket Price: Php 165.00</p></span>
+                                        <p class="h5">Number of Seats Available: 20 Seats</p><span><p class="h4">Service Fee: Php 50.00</p></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="cancellation-policy">
+                                <p class="notice1">Cancellation Policy</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            </div>
+                            <div class="reminders-policy">
+                                <p class="notice1">Reminders</p>
+                                <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <form action="{{ url_for('book') }}" method="POST">
+                                <input type="checkbox" id="choice" name="agree" value="yes">
+                                <label for="choice"> I AGREE TO THE TERMS AND CONDITIONS</label><br>
+                                <button class="btn btn-danger">CONFIRM</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>      
             {% endfor %}
 
         </div>
     </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+        
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+        
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        
+        btn.onclick = function() {
+          modal.style.display = "block";
+        }
+        
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+        
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+        </script>
 </body>
+
 
 </html>
