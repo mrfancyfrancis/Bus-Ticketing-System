@@ -1,23 +1,32 @@
+body {
+	background-image: url("/frontend/static/assets/aboutUsBG.svg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+
 .body {
-    margin: 3%;
+	margin: 10%;
+	margin-top: 350px;
+	justify-content: center;
 }
 
 .navbar-inner {
-    background-color:red;
+	background-color:red;
 }
 
 header {
     overflow: hidden;
 }
 
-.para-1 {
-    text-align: justify;
+.navbar-inner {
+    background-color:red;
 }
 
 /* NAVIGATION */
 nav {
     font-weight: 500;
-    padding: 50px 0;
+	padding: 50px 0;
 }
 
 nav ul {
@@ -35,7 +44,6 @@ nav ul li a {
     text-decoration: none;
     color: white;
     font-size: 100%;
-    font-weight: 600;
     text-transform: uppercase;
     margin: 0 10px;
 }
@@ -76,6 +84,12 @@ nav.shift ul li a:after {
     visibility: none;
     opacity: 0;
     z-index: -1;
+}
+
+.content-attrib {
+	color: black;
+	text-align: center;
+	justify-content: center;
 }
 
 nav.shift ul li a:hover:after {
