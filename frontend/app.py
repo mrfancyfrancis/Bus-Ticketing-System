@@ -32,8 +32,15 @@ def home():
     if not request.cookies.get('token'):
         return render_template('login.html')
     else:
-        return render_template('home.html')
-
+        info_response = requests.post("http://127.0.0.1:8000/user/info/",
+                                            headers = {"Authorization": 'Token ' + request.cookies.get('token')}
+                                            )
+        reservation_response = requests.post("http://127.0.0.1:8000/user/reservations/",
+                                            headers = {"Authorization": 'Token ' + request.cookies.get('token')}
+                                            )
+        info = json.loads(json.loads(info_response.json())['data'])
+        reservations = json.loads(json.loads(reservation_response.json())['data'])['reservation']
+        return render_template('home.html', info=info, reservations=reservations)
 
 @app.route('/logout/')
 def logout():
@@ -58,6 +65,7 @@ def login():
     print(response)
     if response['status'] == 200:
         data = json.loads(response['data'])
+        info = data['info']
         print(data, type(data))
         resp = make_response(redirect('/'))
         resp.set_cookie('token', data['token'])
