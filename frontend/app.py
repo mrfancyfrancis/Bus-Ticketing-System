@@ -84,6 +84,10 @@ def book():
 def about():
     return render_template('about.html')
 
+@app.route('/buspartners/')
+def buspartners():
+    return render_template('buspartners.html')
+
 if __name__ == "__main__":
    app.secret_key = os.urandom(12)
    app.run(debug=True, host="0.0.0.0")
