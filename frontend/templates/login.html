@@ -7,11 +7,7 @@
 		<div class="form-container sign-up-container">
 			<form action="Signup">
 				<h1>Sign up</h1>
-				<div class="two-forms-container">
-					<a href="#" class="social social-facebook-icon hvr-buzz-out"><i class="facebook"></i></a>
-					<a href="#" class="social social-google-icon hvr-buzz-out"><i class="google"></i></a>
-				</div>
-				<span>or use your email for registration</span>
+				<span style="margin-bottom: 30px;">create an account</span>
 				<input type="text" placeholder="Name" class="hvr-bounce-in"/>
 				<input type="email" placeholder="Email" class="hvr-bounce-in"/>
 				<input type="password" placeholder="Password" class="hvr-bounce-in"/>
@@ -21,11 +17,7 @@
 		<div class="form-container sign-in-container">
 			<form action="{{ url_for('login') }}" method="POST">
 				<h1>Log in</h1>
-				<div class="two-forms-container">
-					<a href="#" class="social social-facebook-icon hvr-buzz-out"><i class="facebook"></i></a>
-					<a href="#" class="social social-google-icon hvr-buzz-out"><i class="google"></i></a>
-				</div>
-				<span>or use your account</span>
+				<span style="margin-bottom: 30px;">enter your credentials</span>
 				<input type="email" name="username" placeholder="Email" class="hvr-bounce-in"/>
 				<input type="password" name="password" placeholder="Password" class="hvr-bounce-in"/>
 				<a href="#" class="hvr-underline-from-center">Forgot your password?</a>
