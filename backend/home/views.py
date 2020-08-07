@@ -201,3 +201,57 @@ def getReservations(request):
     }
     response = ResponseObject(HTTP_200_OK, json.dumps(data))
     return Response(response.getResponse())
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def getUserAvailableSchedule(request):
+    print(request.user, request.user.id)
+    user = PassengerAccount.objects.filter(id=request.user.id).last()
+    if not user:
+        return Response(ResponseObject(HTTP_404_NOT_FOUND, { 'Message': 'Invalid Credentials' })).getResponse()
+    Reservations = Reservation.objects.filter(passenger=user)
+    print(Reservations)
+    reservations = []
+    for R in list(Reservations):
+        r = {
+                'date':R.schedule.schedule.strftime('%Y-%m-%d'),
+                'time':R.schedule.schedule.strftime('%H:%M'),
+                'company':R.schedule.company.name,
+                'ticket_number':'#'+format(R.id,'011d'),
+                'status': Payment.objects.filter(reservation=R).last().status
+        }
+        reservations.append(r)
+    data ={
+        "user":request.user.username,
+        'reservations': reservations
+    }
+    response = ResponseObject(HTTP_200_OK, json.dumps(data))
+    return Response(response.getResponse())
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def getAllSchedules(request):
+    print(request.user, request.user.id)
+    user = PassengerAccount.objects.filter(id=request.user.id).last()
+    if not user:
+        return Response(ResponseObject(HTTP_404_NOT_FOUND, { 'Message': 'Invalid Credentials' })).getResponse()
+    Reservations = Reservation.objects.filter(passenger=user)
+    print(Reservations)
+    reservations = []
+    for R in list(Reservations):
+        r = {
+                'date':R.schedule.schedule.strftime('%Y-%m-%d'),
+                'time':R.schedule.schedule.strftime('%H:%M'),
+                'company':R.schedule.company.name,
+                'ticket_number':'#'+format(R.id,'011d'),
+                'status': Payment.objects.filter(reservation=R).last().status
+        }
+        reservations.append(r)
+    data ={
+        "user":request.user.username,
+        'reservations': reservations
+    }
+    response = ResponseObject(HTTP_200_OK, json.dumps(data))
+    return Response(response.getResponse())
