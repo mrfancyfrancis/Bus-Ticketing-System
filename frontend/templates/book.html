@@ -38,6 +38,27 @@
         </nav>
     </header>
 
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <div class="modal-body">
+                ...
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+
     <body>
         <div class="body">
             <div class="profile-card card-attrib">
@@ -66,6 +87,7 @@
                 </div>
             </div>
             
+          
             
             {% for s in schedules %}
                 <div class="card" style="margin-bottom: 50px">
@@ -74,40 +96,10 @@
                         <h5 class="card-title">From {{s.origin}} To {{s.destination}}</h5>
                         <h5 class="card-text">Number of Seats Available: 20 Seats</h5>
                         <h5 class="card-text price">Php 165.00</h5>
-                        <button id="myBtn" class="btn btn-danger">SELECT</button>
+                        <button id="myBtn" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">SELECT</button>
                     </div>
                 </div> 
-
-                <div id="myModal" class="modal">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <span class="close">&times;</span>
-                            <h2>BUS DETAILS</h2><br>
-                            <h3 class="mt-0">{{s.company}}</h3><br><p class="h3"><b>Php 215.00</b></p>
-                            <div class="para-1">
-                                <p class="h4">From {{s.origin}} To {{s.destination}}</p><span><p class="h4">Ticket Price: Php 165.00</p></span>
-                                <p class="h5">Number of Seats Available: 20 Seats</p><span><p class="h4">Service Fee: Php 50.00</p></span>
-                            </div>
-                        </div>
-                        <div class="modal-body">
-                            <div class="cancellation-policy">
-                                <p class="notice1">Cancellation Policy</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                            </div>
-                            <div class="reminders-policy">
-                                <p class="notice1">Reminders</p>
-                                <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <form action="{{ url_for('book') }}" method="POST">
-                                <input type="checkbox" id="choice" name="agree" value="yes">
-                                <label for="choice">I AGREE TO THE TERMS AND CONDITIONS</label><br>
-                                <button class="btn btn-danger">CONFIRM</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>      
+                
             {% endfor %}
         </div>
 
