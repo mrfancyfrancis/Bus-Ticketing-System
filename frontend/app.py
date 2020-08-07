@@ -38,9 +38,9 @@ def home():
         reservation_response = requests.post("http://127.0.0.1:8000/user/reservations/",
                                             headers = {"Authorization": 'Token ' + request.cookies.get('token')}
                                             )
-        print(info_response)
-        print(reservation_response)
-        return render_template('home.html')
+        info = json.loads(json.loads(info_response.json())['data'])
+        reservations = json.loads(json.loads(reservation_response.json())['data'])['reservation']
+        return render_template('home.html', info=info, reservations=reservations)
 
 @app.route('/logout/')
 def logout():
