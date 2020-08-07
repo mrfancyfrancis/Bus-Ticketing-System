@@ -65,36 +65,19 @@
                         </div>
                 </div>
             </div>
+            
+            {% for s in schedules %}
+                <div class="card" style="margin-bottom: 50px">
+                    <h3 class="card-header">{{s.company}}</h3>
+                    <div class="card-body">
+                        <h5 class="card-title">From {{s.origin}} To {{s.destination}}</h5>
+                        <h5 class="card-text">Number of Seats Available: 20 Seats</h5>
+                        <h5 class="card-text price">Php 165.00</h5>
+                        <a href="#" class="btn btn-danger">SELECT</a>
+                    </div>
+                </div>       
+            {% endfor %}
 
-            <div class="card" style="margin-bottom: 50px">
-                <h3 class="card-header">AMV Bus</h3>
-                <div class="card-body">
-                  <h5 class="card-title">309 P.Tuazon Blvd., Project 4, Quezon City, 1109 Metro Manila</h5>
-                  <h5 class="card-text">Number of Seats Available: 20 Seats</h5>
-                  <h5 class="card-text price">Php 165.00</h5>
-                  <a href="#" class="btn btn-danger">SELECT</a>
-                  </div>
-                </div>
-
-            <div class="card" style="margin-bottom: 50px">
-                <h3 class="card-header">AMV Bus</h3>
-                <div class="card-body">
-                    <h5 class="card-title">309 P.Tuazon Blvd., Project 4, Quezon City, 1109 Metro Manila</h5>
-                    <h5 class="card-text">Number of Seats Available: 20 Seats</h5>
-                    <h5 class="card-text price">Php 165.00</h5>
-                    <a href="#" class="btn btn-danger">SELECT</a>
-                </div>
-            </div>
-
-            <div class="card" style="margin-bottom: 50px">
-                <h3 class="card-header">AMV Bus</h3>
-                <div class="card-body">
-                    <h5 class="card-title">309 P.Tuazon Blvd., Project 4, Quezon City, 1109 Metro Manila</h5>
-                    <h5 class="card-text">Number of Seats Available: 20 Seats</h5>
-                    <h5 class="card-text price">Php 165.00</h5>
-                    <a href="#" class="btn btn-danger">SELECT</a>
-                </div>
-            </div>
         </div>
     </div>
 </body>
