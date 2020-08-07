@@ -58,6 +58,10 @@ def do_admin_login():
         resp = make_response(redirect('/'))
         return resp
 
+@app.route('/book/')
+def book():
+    return render_template('book.html')
+
 if __name__ == "__main__":
    app.secret_key = os.urandom(12)
    app.run(debug=True, host="0.0.0.0")
