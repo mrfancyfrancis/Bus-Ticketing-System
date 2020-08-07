@@ -66,6 +66,7 @@
                 </div>
             </div>
             
+            
             {% for s in schedules %}
                 <div class="card" style="margin-bottom: 50px">
                     <h3 class="card-header">{{s.company}}</h3>
@@ -76,23 +77,16 @@
                         <button id="myBtn" class="btn btn-danger">SELECT</button>
                     </div>
                 </div> 
-                <!-- The Modal -->
-                <div id="myModal" class="modal">
 
-                    <!-- Modal content -->
+                <div id="myModal" class="modal">
                     <div class="modal-content">
                         <div class="modal-header">
                             <span class="close">&times;</span>
-                            <h2>BUS DETAILS</h2>
-                            <div class="media">
-                                <img class="align-self-center mr-3" src="/frontend/static/assets/busIcon.png" alt="Generic placeholder image">
-                                <div class="media-body">
-                                <h3 class="mt-0">{{s.company}}</h3><br><span><p class="h3"><b>Php 215.00</b></p></span>
-                                    <div class="para-1">
-                                        <p class="h4">From {{s.origin}} To {{s.destination}}</p><span><p class="h4">Ticket Price: Php 165.00</p></span>
-                                        <p class="h5">Number of Seats Available: 20 Seats</p><span><p class="h4">Service Fee: Php 50.00</p></span>
-                                    </div>
-                                </div>
+                            <h2>BUS DETAILS</h2><br>
+                            <h3 class="mt-0">{{s.company}}</h3><br><p class="h3"><b>Php 215.00</b></p>
+                            <div class="para-1">
+                                <p class="h4">From {{s.origin}} To {{s.destination}}</p><span><p class="h4">Ticket Price: Php 165.00</p></span>
+                                <p class="h5">Number of Seats Available: 20 Seats</p><span><p class="h4">Service Fee: Php 50.00</p></span>
                             </div>
                         </div>
                         <div class="modal-body">
@@ -108,42 +102,33 @@
                         <div class="modal-footer">
                             <form action="{{ url_for('book') }}" method="POST">
                                 <input type="checkbox" id="choice" name="agree" value="yes">
-                                <label for="choice"> I AGREE TO THE TERMS AND CONDITIONS</label><br>
+                                <label for="choice">I AGREE TO THE TERMS AND CONDITIONS</label><br>
                                 <button class="btn btn-danger">CONFIRM</button>
                             </form>
                         </div>
                     </div>
                 </div>      
             {% endfor %}
-
         </div>
-    </div>
 
-    <script>
-        // Get the modal
-        var modal = document.getElementById("myModal");
-        
-        // Get the button that opens the modal
-        var btn = document.getElementById("myBtn");
-        
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-        
-        btn.onclick = function() {
-          modal.style.display = "block";
-        }
-        
-        span.onclick = function() {
-          modal.style.display = "none";
-        }
-        
-        window.onclick = function(event) {
-          if (event.target == modal) {
+        <script>
+            var modal = document.getElementById("myModal");
+            var btn = document.getElementById("myBtn");
+            var span = document.getElementsByClassName("close")[0];
+
+            btn.onclick = function() {
+            modal.style.display = "block";
+            }
+            
+            span.onclick = function() {
             modal.style.display = "none";
-          }
-        }
+            }
+            
+            window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+            }
         </script>
-</body>
-
-
+    </body>
 </html>
