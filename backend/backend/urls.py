@@ -20,5 +20,7 @@ from home import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/login', views.login),
-    path('book/', views.book)
+    path('book/', views.book),
+    path('user/info/', views.getUserInfo),
+    path('user/reservations/', views.getReservations),
 ]
