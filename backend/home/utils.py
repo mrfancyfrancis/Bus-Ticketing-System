@@ -24,4 +24,4 @@ def createTransaction(payload):
     headers = {'Authorization': 'Basic ' + getPublicAuthToken(), 'content-type': 'application/json'}
     response = requests.request('POST',  'https://pg-sandbox.paymaya.com/checkout/v1/checkouts', headers=headers,
                                 data=json.dumps(payload))
-    return response.text.encode('utf8')
+    return json.loads(response.text.encode('utf8'))
