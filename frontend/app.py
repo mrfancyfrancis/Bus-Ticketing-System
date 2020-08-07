@@ -40,7 +40,6 @@ def home():
                                             )
         info = json.loads(json.loads(info_response.json())['data'])
         reservations = json.loads(json.loads(reservation_response.json())['data'])['reservations']
-        print(reservations)
         return render_template('home.html', info=info, reservations=reservations)
 
 @app.route('/logout/')
@@ -79,11 +78,25 @@ def login():
 
 @app.route('/book/')
 def book():
-    return render_template('book.html')
+    if not request.cookies.get('token'):
+        resp = make_response(redirect('/'))
+        return resp
+    else:
+        schedule_response = requests.post("http://127.0.0.1:8000/schedules/",
+                                            headers = {"Authorization": 'Token ' + request.cookies.get('token')}
+                                            )
+        schedules = json.loads(schedule_response.json())['data']
+        #schedules = json.loads(schedule_response.json())      
+        print(schedules, type(schedules))  
+    return render_template('book.html', schedules=schedules)
 
 @app.route('/about/')
 def about():
-    return render_template('about.html')
+    if not request.cookies.get('token'):
+        resp = make_response(redirect('/'))
+        return resp
+    else:
+        return render_template('about.html')
 
 if __name__ == "__main__":
    app.secret_key = os.urandom(12)
