@@ -44,19 +44,13 @@ def logout():
 
 
 @app.route('/login/', methods=['POST'])
-def do_admin_login():
-    backend_response = requests.post("http://127.0.0.1:8000/user/login",
-                                     data={"username":request.form['username'],"password":request.form['password']})
-    response = json.loads(backend_response.json())
-    data = json.loads(response['data'])
-    if response['status'] == 200:
-        resp = make_response(redirect('/'))
-        resp.set_cookie('token',data['token'])
-        return resp
-    else:
-        flash('Invalid Credentials')
-        resp = make_response(redirect('/'))
-        return resp
+def login():
+    username = request.form["username"]
+    password = request.form["password"]
+    processed_text = username.upper()
+    processed_text2 = password.upper()
+    return processed_text
+
 
 @app.route('/book/')
 def book():
