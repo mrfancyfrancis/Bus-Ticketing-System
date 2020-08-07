@@ -20,6 +20,7 @@ class PassengerAccount(models.Model):
         blank=False,
         null=False,
     )
+    lastname = models.CharField(max_length=50, blank=True)
 
 
 class BusCompany(models.Model):
