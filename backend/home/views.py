@@ -83,6 +83,14 @@ def book(request):
         schedule=schedule
     )
     reservation.save()
+    payment = Payment(
+        amount=decimal.Decimal(schedule.full_price),
+        payment="{} to {} {}".format(schedule.origin, schedule.destination, schedule.company.name),
+        status='Pending',
+        reservation=reservation,
+        checkout_id='None',
+    )
+    payment.save()
     payload = {
                 "totalAmount": {
                     "value": int(schedule.ticket_price) + 50,
@@ -98,7 +106,7 @@ def book(request):
                 "buyer": {
                     "firstName": user.firstname,
                     "middleName": "",
-                    "lastName": user.firstname,
+                    "lastName": user.lastname,
                     "birthday": user.birthday.strftime('%Y-%m-%d'),
                     "customerSince": "",
                     "sex": "",
@@ -158,7 +166,7 @@ def book(request):
                     }
                 ],
                 "redirectUrl": {
-                    "success": "https://www.merchantsite.com/success",
+                    "success": ("http://localhost:5000/payment/approved?id="+str(payment.id)),
                     "failure": "https://www.merchantsite.com/failure",
                     "cancel": "https://www.merchantsite.com/cancel"
                 },
@@ -167,13 +175,7 @@ def book(request):
             }
     print(payload)
     response = utils.createTransaction(payload)
-    payment = Payment(
-        amount=decimal.Decimal(schedule.full_price),
-        payment="{} to {} {}".format(schedule.origin, schedule.destination, schedule.company.name),
-        status='Pending',
-        reservation=reservation,
-        checkout_id=response['checkoutId'],
-    )
+    payment.checkout_id = response['checkoutId']
     payment.save()
     data = {
         "payment_url": response['redirectUrl'],
@@ -287,4 +289,21 @@ def getAllSchedules(request):
         }
         schedules.append(s)
     response = ResponseObject(HTTP_200_OK, schedules)
+    return Response(response.getResponse())
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def confirmPayment(request):
+    payment_id = request.data.get('payment_id')
+    payment = Payment.objects.filter(id=payment_id).last()
+    payment.status = 'Approved'
+    payment.save()
+    p = {
+        'payment': payment.payment,
+        'amount': str(payment.amount),
+        'status': payment.status,
+        'checkout': payment.checkout_id
+    }
+    response = ResponseObject(HTTP_200_OK, p)
     return Response(response.getResponse())

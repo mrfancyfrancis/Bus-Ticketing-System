@@ -102,6 +102,23 @@ def about():
 def buspartners():
     return render_template('buspartners.html')
 
+@app.route('/payment/approved')
+def approvepayment():
+    id = request.args.get('id', type=int)
+    if not request.cookies.get('token'):
+        resp = make_response(redirect('/'))
+        return resp
+    else:
+        print('payment id '+str(id))
+        payment_response = requests.post("http://127.0.0.1:8000/user/payment/",
+                                          headers={"Authorization": 'Token ' + request.cookies.get('token')},
+                                          data={"payment_id": id}
+                                          )
+        payment = json.loads(payment_response.json())
+        # schedules = json.loads(schedule_response.json())
+        print(payment, type(payment))
+    return render_template(payment)
+
 if __name__ == "__main__":
    app.secret_key = os.urandom(12)
    app.run(debug=True, host="0.0.0.0")
