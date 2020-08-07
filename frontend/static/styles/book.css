@@ -116,7 +116,3 @@ nav.shift ul li a:hover:after {
 .card-deck{
     margin-bottom: 10px;
 }
-
-.position{
-    z-index: 1;
-}

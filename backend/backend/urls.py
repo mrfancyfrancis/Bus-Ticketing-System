@@ -23,5 +23,6 @@ urlpatterns = [
     path('book/', views.book),
     path('user/info/', views.getUserInfo),
     path('user/reservations/', views.getReservations),
+    path('user/schedules/', views.getUserAvailableSchedule),
     path('schedules/', views.getAllSchedules)
 ]

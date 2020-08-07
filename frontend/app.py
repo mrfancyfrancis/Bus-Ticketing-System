@@ -82,7 +82,7 @@ def book():
         resp = make_response(redirect('/'))
         return resp
     else:
-        schedule_response = requests.post("http://127.0.0.1:8000/schedules/",
+        schedule_response = requests.post("http://127.0.0.1:8000/user/schedules/",
                                             headers = {"Authorization": 'Token ' + request.cookies.get('token')}
                                             )
         schedules = json.loads(schedule_response.json())['data']
