@@ -10,7 +10,7 @@ from rest_framework.status import (
 )
 from rest_framework.response import Response
 import json
-from home.models import ResponseObject, PassengerAccount
+from home.models import ResponseObject, PassengerAccount, Reservation, Payment
 import home.utils
 
 @csrf_exempt
@@ -156,3 +156,48 @@ def book(request):
             }
 
     return Response(content)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def getUserInfo(request):
+    print(request.user, request.user.id)
+    user = PassengerAccount.objects.filter(id=request.user.id).last()
+    if not user:
+        return Response(ResponseObject(HTTP_404_NOT_FOUND, { 'Message': 'Invalid Credentials' })).getResponse()
+    data ={
+        "email":request.user.username,
+        'firstname': user.firstname,
+        'lastname': user.lastname,
+        'age': user.age,
+        'birthday': user.birthday.strftime('%Y-%m-%d'),
+        'contact_no': user.contact_no
+    }
+    response = ResponseObject(HTTP_200_OK, json.dumps(data))
+    return Response(response.getResponse())
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def getReservations(request):
+    print(request.user, request.user.id)
+    user = PassengerAccount.objects.filter(id=request.user.id).last()
+    if not user:
+        return Response(ResponseObject(HTTP_404_NOT_FOUND, { 'Message': 'Invalid Credentials' })).getResponse()
+    Reservations = Reservation.objects.filter(passenger=user)
+    print(Reservations)
+    reservations = []
+    for R in list(Reservations):
+        r = {
+                'date':R.schedule.schedule.strftime('%Y-%m-%d'),
+                'time':R.schedule.schedule.strftime('%H:%M'),
+                'company':R.schedule.company.name,
+                'ticket_number':'#'+format(R.id,'011d'),
+                'status': Payment.objects.filter(reservation=R).last().status
+        }
+        reservations.append(r)
+    data ={
+        "user":request.user.username,
+        'reservations': reservations
+    }
+    response = ResponseObject(HTTP_200_OK, json.dumps(data))
+    return Response(response.getResponse())

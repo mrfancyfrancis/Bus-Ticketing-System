@@ -108,3 +108,11 @@ nav.shift ul li a:hover:after {
 .dropdown-menu{
     background-color: lightgrey;
 }
+
+.price {
+    color: red;
+}
+
+.card-deck{
+    margin-bottom: 10px;
+}
