@@ -245,6 +245,8 @@ def getAllSchedules(request):
         s = {
                 'date':S.schedule.strftime('%Y-%m-%d'),
                 'time':S.schedule.strftime('%H:%M'),
+                'origin':S.origin,
+                'destination':S.destination,
                 'company':S.company.name,
         }
         schedules.append(s)
