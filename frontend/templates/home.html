@@ -61,88 +61,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">01/01/20</th>
-                    <td>6:00 PM</td>
-                    <td>Santrans</td>
-                    <td>#20200000001</td>
-                    <td>Approved</td>
-                </tr>
-                <tr>
-                    <th scope="row">02/01/20</th>
-                    <td>8:30 AM</td>
-                    <td>Megabus</td>
-                    <td>#20200000002</td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <th scope="row">03/01/20</th>
-                    <td>12:15 PM</td>
-                    <td>AMV Bus</td>
-                    <td>#20200000003</td>
-                    <td>Approved</td>
-                </tr>
-                    <th scope="row">01/01/20</th>
-                    <td>6:00 PM</td>
-                    <td>Santrans</td>
-                    <td>#20200000001</td>
-                    <td>Approved</td>
-                </tr>
-                <tr>
-                    <th scope="row">02/01/20</th>
-                    <td>8:30 AM</td>
-                    <td>Megabus</td>
-                    <td>#20200000002</td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <th scope="row">03/01/20</th>
-                    <td>12:15 PM</td>
-                    <td>AMV Bus</td>
-                    <td>#20200000003</td>
-                    <td>Approved</td>
-                </tr>
-                <tr>
-                    <th scope="row">01/01/20</th>
-                    <td>6:00 PM</td>
-                    <td>Santrans</td>
-                    <td>#20200000001</td>
-                    <td>Approved</td>
-                </tr>
-                <tr>
-                    <th scope="row">02/01/20</th>
-                    <td>8:30 AM</td>
-                    <td>Megabus</td>
-                    <td>#20200000002</td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <th scope="row">03/01/20</th>
-                    <td>12:15 PM</td>
-                    <td>AMV Bus</td>
-                    <td>#20200000003</td>
-                    <td>Approved</td>
-                </tr>
-                    <th scope="row">01/01/20</th>
-                    <td>6:00 PM</td>
-                    <td>Santrans</td>
-                    <td>#20200000001</td>
-                    <td>Approved</td>
-                </tr>
-                <tr>
-                    <th scope="row">02/01/20</th>
-                    <td>8:30 AM</td>
-                    <td>Megabus</td>
-                    <td>#20200000002</td>
-                    <td>Pending</td>
-                </tr>
-                <tr>
-                    <th scope="row">03/01/20</th>
-                    <td>12:15 PM</td>
-                    <td>AMV Bus</td>
-                    <td>#20200000003</td>
-                    <td>Approved</td>
-                </tr>
+                    {% for r in reservations %}
+                        <tr>
+                            <th scope="row">{{r.date}}</th>
+                            <td>{{r.time}}</td>
+                            <td>{{r.company}}</td>
+                            <td>{{r.ticket_number}}</td>
+                            <td>{{r.status}}</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
