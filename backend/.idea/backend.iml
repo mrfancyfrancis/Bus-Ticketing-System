@@ -17,6 +17,10 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Bus-Ticketing-System" />
+<<<<<<< HEAD
+=======
+    <orderEntry type="module" module-name="Bus-Ticketing-System" />
+>>>>>>> cccaf6585cbd8ca3a294c5851f58460f62a17ba5
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

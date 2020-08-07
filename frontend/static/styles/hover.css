@@ -312,6 +312,8 @@
 .hvr-sink:hover, .hvr-sink:focus, .hvr-sink:active {
   -webkit-transform: translateY(8px);
   transform: translateY(8px);
+  background-color: red;
+  border-color: red;
 }
 
 /* Bob */
