@@ -201,7 +201,8 @@ def getUserInfo(request):
         'lastname': user.lastname,
         'age': user.age,
         'birthday': user.birthday.strftime('%Y-%m-%d'),
-        'contact_no': user.contact_no
+        'contact_no': user.contact_no,
+        'address': user.address
     }
     response = ResponseObject(HTTP_200_OK, json.dumps(data))
     return Response(response.getResponse())
@@ -243,6 +244,8 @@ def getUserAvailableSchedule(request):
         return Response(ResponseObject(HTTP_404_NOT_FOUND, { 'Message': 'Invalid Credentials' })).getResponse()
     Reservations = Reservation.objects.filter(passenger=user)
     Schedules = Schedule.objects.all()
+    for R in list(Reservations):
+        Schedules = Schedules.exclude(id=R.schedule.id)
     print(Schedules)
     schedules = []
     for S in list(Schedules):
