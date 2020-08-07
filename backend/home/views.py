@@ -131,7 +131,7 @@ def book(request):
                 },
                 "items": [
                     {
-                        "name": "Reservation fee from {} to {}".format(schedule.origin, schedule.destination),
+                        "name": "{} to {} {}".format(schedule.origin, schedule.destination, schedule.company.name),
                         "quantity": 1,
                         "code": (schedule.company.name[3:]+'-'+format(schedule.id,'06d')),
                         "description": "Reservation Bus Ticket",
@@ -169,7 +169,7 @@ def book(request):
     response = utils.createTransaction(payload)
     payment = Payment(
         amount=decimal.Decimal(schedule.full_price),
-        payment="Reservation fee from {} to {}".format(schedule.origin, schedule.destination),
+        payment="{} to {} {}".format(schedule.origin, schedule.destination, schedule.company.name),
         status='Pending',
         reservation=reservation,
         checkout_id=response['checkoutId'],

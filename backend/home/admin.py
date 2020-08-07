@@ -11,6 +11,7 @@ class PassengerAdmin(admin.ModelAdmin):
         'age',
         'birthday',
         'contact_no',
+        'address',
     ]
     search_fields = [
         'id',
