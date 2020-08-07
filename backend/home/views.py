@@ -239,7 +239,7 @@ def getAllSchedules(request):
     if not user:
         return Response(ResponseObject(HTTP_404_NOT_FOUND, { 'Message': 'Invalid Credentials' })).getResponse()
     Schedules = Schedule.objects.all()
-    print(Reservations)
+    print(Schedules)
     schedules = []
     for S in list(Schedules):
         s = {
@@ -248,5 +248,5 @@ def getAllSchedules(request):
                 'company':S.company.name,
         }
         schedules.append(s)
-    response = ResponseObject(HTTP_200_OK, json.dumps(S))
+    response = ResponseObject(HTTP_200_OK, schedules)
     return Response(response.getResponse())
