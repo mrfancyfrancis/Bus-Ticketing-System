@@ -11,7 +11,8 @@ from rest_framework.status import (
 from rest_framework.response import Response
 import json
 from home.models import ResponseObject, PassengerAccount, Reservation, Payment, Schedule
-import home.utils
+from home import utils
+import decimal
 
 @csrf_exempt
 @api_view(["POST"])
@@ -66,22 +67,32 @@ def login(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def book(request):
+    '''
+
+    :param request:
+    schedule: schedule to book
+
+    :return:
+    '''
     user = PassengerAccount.objects.filter(id=request.user).last()
     if not user:
         return Response(ResponseObject(HTTP_404_NOT_FOUND, {'Message': 'Invalid User'}).getResponse())
-
-
-
+    schedule = Schedule.objects.filter(id=request.data.get("schedule")).last()
+    reservation = Reservation(
+        passenger=user,
+        schedule=schedule
+    )
+    reservation.save()
     payload = {
                 "totalAmount": {
-                    "value": 100,
+                    "value": int(schedule.ticket_price) + 50,
                     "currency": "PHP",
                     "details": {
                         "discount": 0,
-                        "serviceCharge": 0,
+                        "serviceCharge": 50,
                         "shippingFee": 0,
                         "tax": 0,
-                        "subtotal": 100
+                        "subtotal": int(schedule.ticket_price)
                     }
                 },
                 "buyer": {
@@ -120,28 +131,28 @@ def book(request):
                 },
                 "items": [
                     {
-                        "name": "Canvas Slip Ons",
+                        "name": "Reservation fee from {} to {}".format(schedule.origin, schedule.destination),
                         "quantity": 1,
-                        "code": "CVG-096732",
-                        "description": "Shoes",
+                        "code": (schedule.company.name[3:]+'-'+format(schedule.id,'06d')),
+                        "description": "Reservation Bus Ticket",
                         "amount": {
-                            "value": 100,
+                            "value": int(schedule.ticket_price),
                             "details": {
                                 "discount": 0,
-                                "serviceCharge": 0,
+                                "serviceCharge": 50,
                                 "shippingFee": 0,
                                 "tax": 0,
-                                "subtotal": 100
+                                "subtotal": int(schedule.ticket_price)
                             }
                         },
                         "totalAmount": {
-                            "value": 100,
+                            "value": int(schedule.ticket_price),
                             "details": {
                                 "discount": 0,
-                                "serviceCharge": 0,
+                                "serviceCharge": 50,
                                 "shippingFee": 0,
                                 "tax": 0,
-                                "subtotal": 100
+                                "subtotal": int(schedule.ticket_price)
                             }
                         }
                     }
@@ -154,8 +165,27 @@ def book(request):
                 "requestReferenceNumber": "1551191039",
                 "metadata": {}
             }
-
-    return Response(content)
+    print(payload)
+    response = utils.createTransaction(payload)
+    payment = Payment(
+        amount=decimal.Decimal(schedule.full_price),
+        payment="Reservation fee from {} to {}".format(schedule.origin, schedule.destination),
+        status='Pending',
+        reservation=reservation,
+        checkout_id=response['checkoutId'],
+    )
+    payment.save()
+    data = {
+        "payment_url": response['redirectUrl'],
+        'payment_details': {
+            'amount': str(payment.amount),
+            'payment': "Reservation fee from {} to {}".format(schedule.origin, schedule.destination),
+            'status': 'Pending',
+            'checkout_id': response['checkoutId'],
+        },
+    }
+    response = ResponseObject(HTTP_200_OK, data)
+    return Response(response.getResponse())
 
 
 @api_view(['POST'])

@@ -52,6 +52,7 @@ class ScheduleAdmin(admin.ModelAdmin):
         'origin',
         'destination',
         'company',
+        'ticket_price',
     ]
     search_fields = [
         'destination',
