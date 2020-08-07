@@ -24,5 +24,6 @@ urlpatterns = [
     path('user/info/', views.getUserInfo),
     path('user/reservations/', views.getReservations),
     path('user/schedules/', views.getUserAvailableSchedule),
-    path('schedules/', views.getAllSchedules)
+    path('schedules/', views.getAllSchedules),
+    path('user/payment/', views.confirmPayment)
 ]

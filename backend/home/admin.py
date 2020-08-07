@@ -23,6 +23,7 @@ class PassengerAdmin(admin.ModelAdmin):
 @admin.register(models.BusCompany)
 class BusCompanyAdmin(admin.ModelAdmin):
     list_display = [
+        'id',
         'name',
     ]
     search_fields = [
@@ -49,6 +50,7 @@ class CompanyAccountAdmin(admin.ModelAdmin):
 @admin.register(models.Schedule)
 class ScheduleAdmin(admin.ModelAdmin):
     list_display = [
+        'id',
         'schedule',
         'origin',
         'destination',
@@ -64,6 +66,7 @@ class ScheduleAdmin(admin.ModelAdmin):
 @admin.register(models.Reservation)
 class ReservationAdmin(admin.ModelAdmin):
     list_display = [
+        'id',
         'passenger',
         'schedule',
     ]
@@ -72,6 +75,7 @@ class ReservationAdmin(admin.ModelAdmin):
 @admin.register(models.Payment)
 class PaymentAdmin(admin.ModelAdmin):
     list_display = [
+        'id',
         'amount',
         'payment',
         'status',
