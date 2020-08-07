@@ -47,9 +47,25 @@ def logout():
 def login():
     username = request.form["username"]
     password = request.form["password"]
-    processed_text = username.upper()
-    processed_text2 = password.upper()
-    return processed_text
+
+
+    backend_response = requests.post("http://127.0.0.1:8000/user/login",
+                                     data = {"username": username,
+                                             "password": password}
+                                     )
+
+    response = json.loads(backend_response.json())
+    print(response)
+    if response['status'] == 200:
+        data = json.loads(response['data'])
+        print(data, type(data))
+        resp = make_response(redirect('/'))
+        resp.set_cookie('token', data['token'])
+        return resp
+    else:
+        flash('Invalid Credentials')
+        resp = make_response(redirect('/'))
+        return resp
 
 
 @app.route('/book/')

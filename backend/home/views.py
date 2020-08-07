@@ -38,9 +38,27 @@ def login(request):
             token, _ = Token.objects.get_or_create(user=user)
             #return Response({'token': token.key},
             #                status=HTTP_200_OK)
+            account = PassengerAccount.objects.filter(id=user).last()
+            '''
+            
+            account, created = PassengerAccount.objects.get_or_create(
+                first_name='Firstname',
+                last_name='Lastname',
+                age=74,
+                birthday=,
+                contact_no=
+            )
+            '''
             data ={
                 "token":token.key,
-                "username":username
+                "username":username,
+                "info":{
+                    'firstname': account.firstname,
+                    'lastname': account.lastname,
+                    'age': account.age,
+                    'birthday': account.birthday.strftime('%Y-%m-%d'),
+                    'contact_no': account.contact_no
+                }
             }
             response = ResponseObject(HTTP_200_OK, json.dumps(data))
     return Response(response.getResponse())
@@ -52,7 +70,7 @@ def book(request):
     if not user:
         return Response(ResponseObject(HTTP_404_NOT_FOUND, {'Message': 'Invalid User'}).getResponse())
 
-    
+
 
     payload = {
                 "totalAmount": {
