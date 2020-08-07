@@ -89,8 +89,8 @@ def book(request):
                     "middleName": "",
                     "lastName": user.firstname,
                     "birthday": user.birthday.strftime('%Y-%m-%d'),
-                    "customerSince": "1995-10-24",
-                    "sex": "M",
+                    "customerSince": "",
+                    "sex": "",
                     "contact": {
                         "phone": user.contact_no,
                         "email": request.user.username
@@ -223,6 +223,8 @@ def getUserAvailableSchedule(request):
             'origin': S.origin,
             'destination': S.destination,
             'company': S.company.name,
+            'ticket_fee': str(S.ticket_price),
+            'total_fee': S.full_price
         }
         schedules.append(s)
     response = ResponseObject(HTTP_200_OK, schedules)
@@ -247,6 +249,8 @@ def getAllSchedules(request):
                 'origin':S.origin,
                 'destination':S.destination,
                 'company':S.company.name,
+                'ticket_fee':str(S.ticket_price),
+                'total_fee':S.full_price
         }
         schedules.append(s)
     response = ResponseObject(HTTP_200_OK, schedules)
