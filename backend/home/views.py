@@ -188,6 +188,7 @@ def getReservations(request):
     reservations = []
     for R in list(Reservations):
         r = {
+                'id':R.id,
                 'date':R.schedule.schedule.strftime('%Y-%m-%d'),
                 'time':R.schedule.schedule.strftime('%I:%M %p'),
                 'company':R.schedule.company.name,
@@ -211,23 +212,20 @@ def getUserAvailableSchedule(request):
     if not user:
         return Response(ResponseObject(HTTP_404_NOT_FOUND, { 'Message': 'Invalid Credentials' })).getResponse()
     Reservations = Reservation.objects.filter(passenger=user)
-    Schedule = Schedule.objects.filter()
-    print(Reservations)
-    reservations = []
-    for R in list(Reservations):
-        r = {
-                'date':R.schedule.schedule.strftime('%Y-%m-%d'),
-                'time':R.schedule.schedule.strftime('%H:%M'),
-                'company':R.schedule.company.name,
-                'ticket_number':'#'+format(R.id,'011d'),
-                'status': Payment.objects.filter(reservation=R).last().status
+    Schedules = Schedule.objects.all()
+    print(Schedules)
+    schedules = []
+    for S in list(Schedules):
+        s = {
+            'id': S.id,
+            'date': S.schedule.strftime('%Y-%m-%d'),
+            'time': S.schedule.strftime('%H:%M'),
+            'origin': S.origin,
+            'destination': S.destination,
+            'company': S.company.name,
         }
-        reservations.append(r)
-    data ={
-        "user":request.user.username,
-        'reservations': reservations
-    }
-    response = ResponseObject(HTTP_200_OK, json.dumps(data))
+        schedules.append(s)
+    response = ResponseObject(HTTP_200_OK, schedules)
     return Response(response.getResponse())
 
 
@@ -243,6 +241,7 @@ def getAllSchedules(request):
     schedules = []
     for S in list(Schedules):
         s = {
+                'id':S.id,
                 'date':S.schedule.strftime('%Y-%m-%d'),
                 'time':S.schedule.strftime('%H:%M'),
                 'origin':S.origin,
