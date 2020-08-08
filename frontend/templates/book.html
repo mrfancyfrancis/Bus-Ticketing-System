@@ -48,12 +48,12 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                <div class="modal-body">
-                    <h5 style="font-weight: bold;">{{s.company}}</h5>
-                    <p>Route: From {{s.origin}} To {{s.destination}}</p>
+                <div id="modal-container" class="modal-body">
+                    <h5 style="font-weight: bold;">company</h5>
+                    <p>Route: From origin To destination</p>
                     <p>Number of Seats Available: 20 Seats</p>
-                    <p style="font-weight: bold;">Total Price: {{s.total_fee}}</p>
-                    <p style="font-style: italic;">**Ticket Price: {{s.ticket_fee}}<br>**Service Fee: Php 50.00</p>
+                    <p style="font-weight: bold;">Total Price: total_fee</p>
+                    <p style="font-style: italic;">**Ticket Price: ticket_fee<br>**Service Fee: Php 50.00</p>
                     <p style="color:red">* Cancellation Policy</p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     <p style="color:red">* Reminders</p>
@@ -104,30 +104,34 @@
                         <h5 class="card-title">From {{s.origin}} To {{s.destination}}</h5>
                         <h5 class="card-text">Number of Seats Available: 20 Seats</h5>
                         <h5 class="card-text price">{{s.ticket_fee}}</h5>
-                        <button id="myBtn" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">SELECT</button>
+                        <button id="myBtn{{s.id}}" class="btn btn-danger" onclick="buttonFunction{{s.id}}()">SELECT</button>
                     </div>
-                </div>     
+                </div>
+            <script>
+                var modal = document.getElementById("exampleModal");
+                var btn = document.getElementById("myBtn{{s.id}}");
+                var span = document.getElementsByClassName("close")[0];
+
+                function buttonFunction{{s.id}}() {
+                    var url = "http://localhost:5000/book/{{s.id}}";
+                    console.log("{{s.id}}")
+                    console.log(url)
+                    window.location.href = url;
+
+                }
+
+                span.onclick = function() {
+                modal.style.display = "none";
+                }
+
+                window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+                }
+            </script>
             {% endfor %}
         </div>
 
-        <script>
-            var modal = document.getElementById("myModal");
-            var btn = document.getElementById("myBtn");
-            var span = document.getElementsByClassName("close")[0];
-        
-            btn.onclick = function() {
-            modal.style.display = "block";
-            }
-            
-            span.onclick = function() {
-            modal.style.display = "none";
-            }
-            
-            window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-            }
-        </script>
     </body>
 </html>

@@ -76,8 +76,9 @@ def login():
         return resp
 
 
-@app.route('/book/')
-def book():
+@app.route('/book/', defaults={'id': None})
+@app.route('/book/<id>')
+def book(id):
     if not request.cookies.get('token'):
         resp = make_response(redirect('/'))
         return resp
@@ -87,8 +88,31 @@ def book():
                                             )
         schedules = json.loads(schedule_response.json())['data']
         #schedules = json.loads(schedule_response.json())      
-        print(schedules, type(schedules))  
+        print(schedules, type(schedules))
+        if id:
+            S = None
+            for s in schedules:
+                if str(id) == str(s['id']):
+                    S = s
+                    break;
+            return render_template('modal.html', S=S)
     return render_template('book.html', schedules=schedules)
+
+@app.route('/payment/<id>')
+def paybook(id):
+    if not request.cookies.get('token'):
+        resp = make_response(redirect('/'))
+        return resp
+    else:
+        payment_response = requests.post("http://127.0.0.1:8000/book/",
+                                            headers = {"Authorization": 'Token ' + request.cookies.get('token')},
+                                            data = {'schedule': id}
+                                            )
+        payment = json.loads(payment_response.json())['data']
+        #schedules = json.loads(payment_response.json())
+        print(payment, type(payment))
+    resp = make_response(redirect(payment['payment_url']))
+    return resp
 
 @app.route('/about/')
 def about():
@@ -117,7 +141,7 @@ def approvepayment():
         payment = json.loads(payment_response.json())
         # schedules = json.loads(schedule_response.json())
         print(payment, type(payment))
-    return render_template(success.html)
+    return render_template('success.html')
 
 @app.route('/payment/unsuccess/')
 def declinepayment():
@@ -125,7 +149,7 @@ def declinepayment():
         resp = make_response(redirect('/'))
         return resp
 
-    return render_template(unsuccessful.html)
+    return render_template('unsuccessful.html')
 
 if __name__ == "__main__":
    app.secret_key = os.urandom(12)
