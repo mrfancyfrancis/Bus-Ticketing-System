@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<div class="modal-content" style="text-align: justify">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- bootstrap css -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!-- personal css -->
+<link rel="stylesheet" type= "text/css" href= "{{ url_for('frontend', filename='/styles/confirmation.css') }}"> 
+<!-- bootstrap js -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<div class="modal-content">
     <div class="modal-header">
-        <h4 class="modal-title" id="exampleModalLabel">BUS DETAILS</h4>
+        <h2 class="modal-title" id="exampleModalLabel" style = "font-weight: bolder">BUS DETAILS</h2>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        <h5 style="font-weight: bold;">{{S.company}}</h5>
-        <p>Route: From {{S.origin}} To {{S.destination}}</p>
-        <p>Number of Seats Available: 20 Seats</p>
-        <p style="font-weight: bold;">Total Price: total_fee</p>
-        <p style="font-style: italic;">**Ticket Price: ticket_fee<br>**Service Fee: Php 50.00</p>
-        <p style="color:red">* Cancellation Policy</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p style="color:red">* Reminders</p>
-        <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+        <div class = "details" style="float:left; width:50%;">
+            <h3 style="font-weight: bold;">{{S.company}}</h3>
+            <p>Route: From {{S.origin}} To {{S.destination}}</p>
+            <p>Number of Seats Available: 20 Seats</p>
+        </div>
+        <div class = "prices" style="float:left;width:50%;text-align: right;">
+            <h4 style="font-weight: bold;">Total Price: {{S.total_fee}}</h4>
+            <p style="font-style: italic;">**Ticket Price: {{S.ticket_fee}}<br>**Service Fee: Php 50.00</p><br>
+        </div>
+        <div class = "otherpanel" style="position: relative;">
+            <p class = "r">* Cancellation Policy</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p class = "r">* Reminders</p>
+            <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+        </div>
     </div>
     <div class="modal-footer">
         <form action="{{ url_for('book') }}" method="POST">
