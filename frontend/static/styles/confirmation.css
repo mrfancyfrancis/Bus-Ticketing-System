@@ -1,3 +1,18 @@
+body {
+	font-family: 'Montserrat', sans-serif;
+	height: 100vh;
+	margin: 10%;
+	overflow: hidden;
+}
+
+.margin{
+    margin: 10%;
+}
+
+.close {
+	display: none;
+}
+
 .modal-content {
     text-align: justify;
 }
