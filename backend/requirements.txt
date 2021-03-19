@@ -1,7 +1,7 @@
 Django==3.0.3
 django-enum-choices==2.1.1
 django-filter==2.2.0
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 Flask==1.0.2
 Flask-Cors==3.0.7
 requests==2.21.0
